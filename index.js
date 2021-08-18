@@ -3,7 +3,8 @@
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 // contractAddress and abi are setted after contract deploy
 var contractAddress = '0x03a166Fe400693738Cce258115cbAF02da72A37A';
-var abi =  [
+var abi =  
+[
 	{
 		"constant": true,
 		"inputs": [],
@@ -18,6 +19,11 @@ var abi =  [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -36,6 +42,11 @@ var abi =  [
 				"internalType": "uint256",
 				"name": "_age",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_endereco",
+				"type": "string"
 			}
 		],
 		"name": "setUser",
@@ -70,16 +81,19 @@ web3.eth.getAccounts(function(err, accounts) {
 function setUser() {
   name = $("#userName").val();
   age = $("#userAge").val();
-  contract.methods.setUser (name, age).send( {from: account}).then( function(tx) { 
+  endereco = $("userendereco").val();
+
+  contract.methods.setUser (name, age, endereco).send( {from: account}).then( function(tx) { 
     console.log("Usuário registrado na transação: ", tx); 
   });
   $("#userName").val('');
   $("#userAge").val('')
+  $("#userendereco").val('')
 }
 
 function getUser() {
   contract.methods.getUser().call().then( function( result ) {
-    console.log(result[0], result[1])
-    document.getElementById('user').innerHTML = ("Nome: " + result[0] + " " + "Idade:  " + result[1]);
+    console.log(result[0], result[1], result[2])
+    document.getElementById('user').innerHTML = ("Nome: " + result[0] + " " + "Idade:  " + result[1]+ "Endereço: " + result[2]);
   });    
 }
