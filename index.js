@@ -2,60 +2,53 @@
 
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 // contractAddress and abi are setted after contract deploy
-var contractAddress = '0xB60199A83b5e045571114017A2d464cCE7B9c99A';
-var abi =
-	[
-		{
-			"constant": true,
-			"inputs": [],
-			"name": "getUser",
-			"outputs": [
-				{
-					"internalType": "string",
-					"name": "",
-					"type": "string"
-				},
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "",
-					"type": "string"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "string",
-					"name": "_name",
-					"type": "string"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_age",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "_endereco",
-					"type": "string"
-				}
-			],
-			"name": "setUser",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		}
-	]
+var contractAddress = '0xF516765931Eeb5B21BC03aca136cff030a8da7D9';
+var abi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_age",
+				"type": "uint256"
+			},
+			{
+				"name": "_sexo",
+				"type": "string"
+			}
+		],
+		"name": "setUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUser",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
 //contract instance
 contract = new web3.eth.Contract(abi, contractAddress);
 
@@ -80,19 +73,18 @@ web3.eth.getAccounts(function (err, accounts) {
 function setUser() {
 	name = $("#userName").val();
 	age = $("#userAge").val();
-	endereco = $("#userEndereco").val();
-
-	contract.methods.setUser(name, age, endereco).send({ from: account }).then(function (tx) {
+	sexo = $("#userSexo").val();
+	contract.methods.setUser(name, age, sexo).send({ from: account }).then(function (tx) {
 		console.log("Usuário registrado na transação: ", tx);
 	});
 	$("#userName").val('');
 	$("#userAge").val('');
-	$("#userEndereco").val('')
+	$("#userSexo").val('')
 }
 
 function getUser() {
 	contract.methods.getUser().call().then(function (result) {
 		console.log(result[0], result[1], result[2])
-		document.getElementById('user').innerHTML = ("Nome: " + result[0] + "  " + "Idade:  " + result[1] + "   " + "Endereço:  " + result[2]);
+		document.getElementById('user').innerHTML = ("Nome: " + result[0] + " " + "<br>Idade:  " + result[1] + "<br>Sexo: " + result[2]);
 	});
 }
