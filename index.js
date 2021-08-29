@@ -2,20 +2,48 @@
 
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 // contractAddress and abi are setted after contract deploy
-var contractAddress = '0xF516765931Eeb5B21BC03aca136cff030a8da7D9';
+var contractAddress = '0x865D10e5D50085016BcDfAF2D3D5c7c1e0decF52';
 var abi = [
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUser",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [
 			{
+				"internalType": "string",
 				"name": "_name",
 				"type": "string"
 			},
 			{
+				"internalType": "uint256",
 				"name": "_age",
 				"type": "uint256"
 			},
 			{
+				"internalType": "string",
 				"name": "_sexo",
 				"type": "string"
 			}
@@ -24,28 +52,6 @@ var abi = [
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUser",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
 		"type": "function"
 	}
 ]
